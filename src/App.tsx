@@ -1,4 +1,4 @@
-import "./App.css";
+import "./index.css";
 import { Box, Button, ButtonGroup, Flex, Heading,VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { UploadPhotoButton } from "./components/UploadPhotoButton";
@@ -17,7 +17,6 @@ function App() {
           align="flex-start"
           width="100%"
           maxWidth="1200px"
-          mx="auto"
           gap={12}
         >
           <Box flex="1" minWidth="300px">
@@ -37,9 +36,9 @@ function App() {
               <VStack as="section" spacing={6} align="flex-start">
                 <Heading size="lg">Velg metode for generering</Heading>
                 <ButtonGroup orientation="vertical" width="100%">
-                  <Button width="100%">Generer med identitetsfarger</Button>
-                  <Button width="100%">Velg fra opplastede bakgrunner</Button>
-                  <Button width="100%">Last opp egen bakgrunn</Button>
+                  <Button>Generer med identitetsfarger</Button>
+                  <Button>Velg fra opplastede bakgrunner</Button>
+                  <Button>Last opp egen bakgrunn</Button>
                 </ButtonGroup>
               </VStack>
             </Box>

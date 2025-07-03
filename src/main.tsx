@@ -1,14 +1,16 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 
 import React from "react";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>
 );
+
+
