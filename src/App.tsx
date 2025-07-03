@@ -9,7 +9,7 @@ function App() {
   
   return (
     <>
-      <VStack spacing={8} align="stretch" width="100vw" minHeight="100vh" p={8}>
+      <VStack align="stretch" width="100vw" minHeight="100vh" p={8}>
         <Heading alignSelf="center">Generering av CV-bilder</Heading>
         <Flex
           direction="row"
@@ -20,7 +20,7 @@ function App() {
           gap={12}
         >
           <Box flex="1" minWidth="300px">
-            <VStack spacing={6} align="flex-start">
+            <VStack align="flex-start">
           <ProfilePlaceholder/>
               <UploadPhotoButton
                 type="original"
@@ -33,7 +33,7 @@ function App() {
           {/* Only show this section after a photo has been uploaded */}
           {originalPhotoPublicId && (
             <Box flex="1" minWidth="300px">
-              <VStack as="section" spacing={6} align="flex-start">
+              <VStack as="section"  align="flex-start">
                 <Heading size="lg">Velg metode for generering</Heading>
                 <ButtonGroup orientation="vertical" width="100%">
                   <Button>Generer med identitetsfarger</Button>
