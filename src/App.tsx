@@ -1,13 +1,51 @@
 import "./App.css";
-import { Heading } from "@chakra-ui/react";
-
+import { Box, Button, ButtonGroup, Flex, Heading,VStack } from "@chakra-ui/react";
+import { useState } from "react";
+import { UploadPhotoButton } from "./components/UploadPhotoButton";
+import { ProfilePlaceholder } from "./components/ProfilePlaceholder";
 
 function App() {
+  const [originalPhotoPublicId, setOriginalPhotoPublicId] = useState<string | null>(null);
+  
   return (
     <>
-      <div>
-        <Heading>Bekk CV Photo Generator</Heading>
-        {/* TODO: Add a header with the title of the app */}
+      <VStack spacing={8} align="stretch" width="100vw" minHeight="100vh" p={8}>
+        <Heading alignSelf="center">Generering av CV-bilder</Heading>
+        <Flex
+          direction="row"
+          justify="space-between"
+          align="flex-start"
+          width="100%"
+          maxWidth="1200px"
+          mx="auto"
+          gap={12}
+        >
+          <Box flex="1" minWidth="300px">
+            <VStack spacing={6} align="flex-start">
+          <ProfilePlaceholder/>
+              <UploadPhotoButton
+                type="original"
+                onUpload={(pid) => {
+                  setOriginalPhotoPublicId(pid);
+                }}
+              />
+            </VStack>
+          </Box>
+          {/* Only show this section after a photo has been uploaded */}
+          {originalPhotoPublicId && (
+            <Box flex="1" minWidth="300px">
+              <VStack as="section" spacing={6} align="flex-start">
+                <Heading size="lg">Velg metode for generering</Heading>
+                <ButtonGroup orientation="vertical" width="100%">
+                  <Button width="100%">Generer med identitetsfarger</Button>
+                  <Button width="100%">Velg fra opplastede bakgrunner</Button>
+                  <Button width="100%">Last opp egen bakgrunn</Button>
+                </ButtonGroup>
+              </VStack>
+            </Box>
+          )}
+        </Flex>
+
         {/* TODO: Button to allow user to upload original CV photo*/}
         {/* TODO: Display original photo uploaded by the user. Fetched from cloudinary*/}
         {/* TOOD: Allow user to select between generating variants based on identity colors, uploading own backdrop*/}
@@ -16,7 +54,7 @@ function App() {
         {/*TODO: Allow user to download the variants */}
         {/*TODO: If the user uploads a backdrop, use the upload API to upload to cloudinary and show the result image below the original photo */}
         {/*TODO: Add a footer with the name of the app and the year */}
-      </div>
+      </VStack>
     </>
   );
 }
