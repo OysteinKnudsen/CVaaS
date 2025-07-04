@@ -12,7 +12,7 @@
 import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails, Float } from "@chakra-ui/react";
 import type React from "react";
 import { HiUpload } from "react-icons/hi";
-import { LuX } from "react-icons/lu";
+import { FilePreview } from "./UploadedFilePreview";
 
 interface Props {
   type: "original" | "backdrop";
@@ -24,7 +24,6 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
     props.type === "original" ? "Last opp orginalbilde" : "Last opp bakgrunn";
 
   const handleUpload = async (fileDetails: FileUploadFileAcceptDetails) => {
-    // TODO: Upload the file to Cloudinary
     const file = fileDetails.files[0];
 
     const formData = new FormData();
@@ -41,6 +40,7 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
 
   const fileUpload = useFileUpload({
     maxFiles: 1,
+    maxFileSize: 4.4 * 1024 * 1024, // 4.4mb is Vercel max file size
     onFileAccept: handleUpload,
     accept: ["image/png", "image/webp", "image/heic"],
   })
@@ -54,20 +54,7 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
         </Button>
       </FileUpload.Trigger>
       {fileUpload.acceptedFiles?.length > 0 && 
-      <FileUpload.Item
-      w="auto"
-      boxSize="20"
-      p="2"
-      file={fileUpload.acceptedFiles[0]}
-      key={fileUpload.acceptedFiles[0].name}
-    >
-      <FileUpload.ItemPreviewImage />
-      <Float placement="top-end">
-        <FileUpload.ItemDeleteTrigger boxSize="4" layerStyle="fill.solid">
-          <LuX />
-        </FileUpload.ItemDeleteTrigger>
-      </Float>
-    </FileUpload.Item>
+      <FilePreview file={fileUpload.acceptedFiles[0]} />
       }
     </FileUpload.RootProvider>
   );

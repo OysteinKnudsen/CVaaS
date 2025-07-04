@@ -1,8 +1,8 @@
 import "./index.css";
 import { Box, Button, ButtonGroup, Flex, Heading,VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { UploadPhotoButton } from "./components/UploadPhotoButton";
-import { ProfilePlaceholder } from "./components/ProfilePlaceholder";
+import { UploadPhotoButton } from "./components/UploadPhotoButton/UploadPhotoButton";
+
 
 function App() {
   const [originalPhotoPublicId, setOriginalPhotoPublicId] = useState<string | null>(null);
@@ -21,7 +21,6 @@ function App() {
         >
           <Box flex="1" minWidth="300px">
             <VStack align="flex-start">
-          <ProfilePlaceholder/>
               <UploadPhotoButton
                 type="original"
                 onUpload={(pid) => {
