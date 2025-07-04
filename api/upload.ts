@@ -10,6 +10,8 @@ import formidable, {
     IncomingForm,
   } from 'formidable'
 import { ApiUploadResponse } from '../types/api/ApiUpload';
+import {parse} from "path";
+
 
 // Helper to parse the incoming request via formidable
 const parseForm = (req): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
@@ -51,13 +53,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse & 
         return res.status(400).json({ error: 'No image file provided' });
       }
 
+      const fileNameWithoutFileExtension = parse(imageFile.originalFilename).name;
       const uploadOptions: UploadApiOptions = {
         folder: type === "backdrop" ? BACKDROPS_FOLDER : ORIGINAL_PHOTOS_FOLDER,
-        public_id: imageFile.originalFilename,
+        public_id: fileNameWithoutFileExtension,
       };
+
+      console.log(imageFile)
       
       try {
         const uploadResult = await cloudinary.uploader.upload(imageFile.filepath, uploadOptions);
+        console.log(uploadResult);
         res.status(200).json({ public_id: uploadResult.public_id });
       } catch (uploadErr: any) {
         res.status(500).json({ error: 'Cloudinary upload failed', details: uploadErr.message });
