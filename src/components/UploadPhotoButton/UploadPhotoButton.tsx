@@ -13,6 +13,7 @@ import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails, F
 import type React from "react";
 import { HiUpload } from "react-icons/hi";
 import { FilePreview } from "./UploadedFilePreview";
+import { FileUploadError } from "./FileUploadError";
 
 
 interface Props {
@@ -58,12 +59,7 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
       <FilePreview file={fileUpload.acceptedFiles[0]} />
       }
       {fileUpload.rejectedFiles?.length > 0 && 
-      <Alert.Root status="error">
-        <Alert.Title>Feil ved opplasting</Alert.Title>
-        <Alert.Description>
-          {fileUpload.rejectedFiles[0].errors}
-        </Alert.Description>
-      </Alert.Root>
+      <FileUploadError error={fileUpload.rejectedFiles[0].errors[0]}/>
       }
     </FileUpload.RootProvider>
   );
