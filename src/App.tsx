@@ -2,6 +2,7 @@ import "./index.css";
 import { Box, Button, ButtonGroup, Flex, Heading,VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { UploadPhotoButton } from "./components/UploadPhotoButton/UploadPhotoButton";
+import { ImageVariants } from "./components/IdendityVariants/ImageVariants";
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
               />
             </VStack>
           </Box>
-          {originalPhotoPublicId}
+          {originalPhotoPublicId && <ImageVariants publicId={originalPhotoPublicId} />}
           {originalPhotoPublicId && (
             <Box flex="1" minWidth="300px">
               <VStack as="section"  align="flex-start">

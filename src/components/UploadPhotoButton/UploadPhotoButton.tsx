@@ -9,7 +9,7 @@
  * The button text should be "Last opp orginalbilde" or "Last opp bakgrunn" depending on the case.
  */
 
-import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails, Float, Alert } from "@chakra-ui/react";
+import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails } from "@chakra-ui/react";
 import type React from "react";
 import { HiUpload } from "react-icons/hi";
 import { FilePreview } from "./UploadedFilePreview";
