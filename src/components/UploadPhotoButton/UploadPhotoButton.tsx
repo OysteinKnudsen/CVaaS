@@ -9,10 +9,11 @@
  * The button text should be "Last opp orginalbilde" or "Last opp bakgrunn" depending on the case.
  */
 
-import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails, Float } from "@chakra-ui/react";
+import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails, Float, Alert } from "@chakra-ui/react";
 import type React from "react";
 import { HiUpload } from "react-icons/hi";
 import { FilePreview } from "./UploadedFilePreview";
+
 
 interface Props {
   type: "original" | "backdrop";
@@ -55,6 +56,14 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
       </FileUpload.Trigger>
       {fileUpload.acceptedFiles?.length > 0 && 
       <FilePreview file={fileUpload.acceptedFiles[0]} />
+      }
+      {fileUpload.rejectedFiles?.length > 0 && 
+      <Alert.Root status="error">
+        <Alert.Title>Feil ved opplasting</Alert.Title>
+        <Alert.Description>
+          {fileUpload.rejectedFiles[0].errors}
+        </Alert.Description>
+      </Alert.Root>
       }
     </FileUpload.RootProvider>
   );
