@@ -9,6 +9,7 @@ import { v2 as cloudinary, UploadApiOptions } from 'cloudinary';
 import formidable, {
     IncomingForm,
   } from 'formidable'
+import { ApiUploadResponse } from '../types/api/ApiUpload';
 
 // Helper to parse the incoming request via formidable
 const parseForm = (req): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
@@ -32,7 +33,7 @@ cloudinary.config({
 const BACKDROPS_FOLDER = 'MediaFlowsTest/CV/Backdrops';
 const ORIGINAL_PHOTOS_FOLDER = 'MediaFlowsTest/CV/Photos';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse & ApiUploadResponse) {
     if (req.method !== 'POST') {
         res.status(405).json({ error: 'Method not allowed' });
         return;
@@ -45,12 +46,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       const { files } = await parseForm(req);
       
-      console.log(files);
       const imageFile = files.image[0]
       if (!imageFile) {
         return res.status(400).json({ error: 'No image file provided' });
       }
-
 
       const uploadOptions: UploadApiOptions = {
         folder: type === "backdrop" ? BACKDROPS_FOLDER : ORIGINAL_PHOTOS_FOLDER,

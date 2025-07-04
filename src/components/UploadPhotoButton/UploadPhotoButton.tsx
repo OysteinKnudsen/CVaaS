@@ -14,6 +14,7 @@ import type React from "react";
 import { HiUpload } from "react-icons/hi";
 import { FilePreview } from "./UploadedFilePreview";
 import { FileUploadError } from "./FileUploadError";
+import type { ApiUploadResponse } from "../../../types/api/ApiUpload";
 
 
 interface Props {
@@ -35,9 +36,8 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
       body: formData,
     });
 
-    const data = await response.json();
-    props.onUpload(data.publicId);
-    console.log(fileDetails);
+    const data: ApiUploadResponse = await response.json();
+    props.onUpload(data.public_id);
   };
 
   const fileUpload = useFileUpload({

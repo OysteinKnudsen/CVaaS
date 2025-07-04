@@ -29,7 +29,7 @@ function App() {
               />
             </VStack>
           </Box>
-          {/* Only show this section after a photo has been uploaded */}
+          {originalPhotoPublicId}
           {originalPhotoPublicId && (
             <Box flex="1" minWidth="300px">
               <VStack as="section"  align="flex-start">
