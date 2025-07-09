@@ -1,19 +1,21 @@
-import { Button,  FileUpload, useFileUpload, type FileUploadFileAcceptDetails } from "@chakra-ui/react";
+import {
+  Button,
+  FileUpload,
+  useFileUpload,
+  type FileUploadFileAcceptDetails,
+} from "@chakra-ui/react";
 import type React from "react";
 import { HiUpload } from "react-icons/hi";
-import { FilePreview } from "./UploadedFilePreview";
 import { FileUploadError } from "./FileUploadError";
 import type { ApiUploadResponse } from "../../../types/api/ApiUpload";
 import { useEffect } from "react";
 
-
 interface Props {
   type: "original" | "backdrop";
-  onUpload: (publicId: string|null) => void;
+  onUpload: (publicId: string | null) => void;
 }
 
 export const UploadPhotoButton: React.FC<Props> = (props) => {
-
   const handleUpload = async (fileDetails: FileUploadFileAcceptDetails) => {
     const file = fileDetails.files[0];
 
@@ -28,38 +30,31 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
     props.onUpload(data.public_id);
   };
 
-  
   const fileUpload = useFileUpload({
     maxFiles: 1,
     maxFileSize: 4.4 * 1024 * 1024, // 4.4mb is Vercel max file size
     onFileAccept: handleUpload,
     accept: ["image/png", "image/webp", "image/heic"],
-  })
-  
+  });
+
   useEffect(() => {
     if (fileUpload.acceptedFiles?.length === 0) {
       props.onUpload(null);
     }
-  }, [fileUpload.acceptedFiles])
+  }, [fileUpload.acceptedFiles]);
 
   return (
     <FileUpload.RootProvider value={fileUpload}>
-      <FileUpload.HiddenInput/>
+      <FileUpload.HiddenInput />
       <FileUpload.Trigger asChild>
-        <Button  ml={4}
-        bg="black"
-        color="white"
-        _hover={{ bg: 'gray.900' }}>
-           Last opp
-           <HiUpload />
+        <Button ml={4} bg="black" color="white">
+          Last opp
+          <HiUpload />
         </Button>
       </FileUpload.Trigger>
-      {fileUpload.acceptedFiles?.length > 0 && 
-      <FilePreview file={fileUpload.acceptedFiles[0]} />
-      }
-      {fileUpload.rejectedFiles?.length > 0 && 
-      <FileUploadError error={fileUpload.rejectedFiles[0].errors[0]}/>
-      }
+      {fileUpload.rejectedFiles?.length > 0 && (
+        <FileUploadError error={fileUpload.rejectedFiles[0].errors[0]} />
+      )}
     </FileUpload.RootProvider>
   );
 };

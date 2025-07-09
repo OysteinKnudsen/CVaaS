@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cloudinary, Transformation } from "@cloudinary/url-gen";
 import { Card } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
@@ -8,7 +8,7 @@ import { source } from "@cloudinary/url-gen/actions/underlay";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 import { DownloadImageButton } from "./DownloadImageButton";
 import { quality } from "@cloudinary/url-gen/actions/delivery";
-import { autoBest, autoLow } from "@cloudinary/url-gen/qualifiers/quality";
+import { autoBest } from "@cloudinary/url-gen/qualifiers/quality";
 import placeholderImg from '../../../assets/placeholder.png';
 
 
@@ -20,19 +20,18 @@ interface Props {
 export const ImageVariant: React.FC<Props> = (props) => {
   const { personPublicId, backdropImagePublicId } = props;
   const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [personPublicId])
 
   const cld = new Cloudinary({
     cloud: {
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
     },
   });
+  
   if (!personPublicId || !backdropImagePublicId) return null;
 
-  const lowQualityBackdropPlaceholder = cld
-  .image(backdropImagePublicId)
-  .resize(scale().width(1463).height(2048))
-  .delivery(quality(autoLow()));
-  
   const transformedImage = cld
     .image(personPublicId)
     .effect(backgroundRemoval().fineEdges())
@@ -53,12 +52,12 @@ export const ImageVariant: React.FC<Props> = (props) => {
     <Card.Root>
       <Card.Body>
         {!isLoaded && 
-       <img src={placeholderImg} alt="Profile placeholder" />
+        <img src={placeholderImg} alt="Profile placeholder" />
         }
           <AdvancedImage
           onLoad={() => setIsLoaded(true)}
           cldImg={transformedImage}
-          plugins={[placeholder({ mode: "vectorize" })]}
+          plugins={[placeholder({ mode: "blur" })]}
         />
       </Card.Body>
       <DownloadImageButton downloadUrl={downloadUrl} />
