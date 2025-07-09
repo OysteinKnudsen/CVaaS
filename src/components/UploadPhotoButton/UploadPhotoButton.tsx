@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 interface Props {
   onUpload: (publicId: string | null) => void;
+  setIsUploading: (isUploading: boolean) => void;
 }
 
 export const UploadPhotoButton: React.FC<Props> = (props) => {
@@ -34,7 +35,7 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
     maxFiles: 1,
     maxFileSize: 4.4 * 1024 * 1024, // 4.4mb is Vercel max file size
     onFileAccept: handleUpload,
-    accept: ["image/png", "image/webp", "image/heic"],
+    accept: ["image/png", "image/webp", "image/heic", "image/jpeg", "image/*"],
   });
 
   useEffect(() => {
