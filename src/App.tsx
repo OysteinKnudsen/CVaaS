@@ -1,8 +1,6 @@
 import "./index.css";
-import { VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
-import { ImageVariant } from "./components/PhotoGrid/ImageVariant";
 import { PhotoGrid } from "./components/PhotoGrid";
 
 function App() {
@@ -30,7 +28,7 @@ function App() {
       <PhotoGrid
         originalPhotoPublicId={originalPhotoPublicId}
         backdrops={backdrops}
-      ></PhotoGrid>
+      />
     </>
   );
 }

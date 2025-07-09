@@ -10,7 +10,7 @@ interface Props {
 export const PhotoGrid: React.FC<Props> = ({ originalPhotoPublicId, backdrops }) => {
   if (!originalPhotoPublicId) return null;
   return (
-    <SimpleGrid columns={4}>
+    <SimpleGrid columns={4} gap={8} margin={8} bgColor={"#1F1F1F"}>
       {backdrops.map((backdrop) => (
         <ImageVariant personPublicId={originalPhotoPublicId} backdropImagePublicId={backdrop}/>
       ))}
