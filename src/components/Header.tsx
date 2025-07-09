@@ -12,7 +12,7 @@ export const Header: React.FC<Props> = ({ onUpload }) => {
         <Text fontSize="l" fontWeight="bold">
           CVaaS
         </Text>
-        <UploadPhotoButton type="original" onUpload={onUpload} />
+        <UploadPhotoButton onUpload={onUpload} />
         <Spacer />
         <Text fontSize="md" fontWeight="medium">
           Bekk

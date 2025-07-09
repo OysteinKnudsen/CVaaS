@@ -11,7 +11,6 @@ import type { ApiUploadResponse } from "../../../types/api/ApiUpload";
 import { useEffect } from "react";
 
 interface Props {
-  type: "original" | "backdrop";
   onUpload: (publicId: string | null) => void;
 }
 
@@ -21,7 +20,7 @@ export const UploadPhotoButton: React.FC<Props> = (props) => {
 
     const formData = new FormData();
     formData.append("image", file);
-    const response = await fetch("/api/upload?type=" + props.type, {
+    const response = await fetch("/api/upload", {
       method: "POST",
       body: formData,
     });
