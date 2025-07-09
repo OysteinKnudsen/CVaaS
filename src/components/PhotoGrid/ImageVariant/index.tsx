@@ -1,0 +1,1 @@
+export { ImageVariant } from "./ImageVariant";
