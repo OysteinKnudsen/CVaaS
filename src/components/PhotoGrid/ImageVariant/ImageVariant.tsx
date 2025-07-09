@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Cloudinary, Transformation } from "@cloudinary/url-gen";
-import { Box, Card, Float } from "@chakra-ui/react";
+import { Box, Float } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
 import { backgroundRemoval } from "@cloudinary/url-gen/actions/effect";
 import { fit, scale } from "@cloudinary/url-gen/actions/resize";
