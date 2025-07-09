@@ -19,7 +19,7 @@ export const PhotoGrid: React.FC<Props> = ({ originalPhotoPublicId, backdrops })
   });
   
   return (
-    <SimpleGrid columns={4} gap={8} margin={8} bgColor={"#1F1F1F"}>
+    <SimpleGrid minChildWidth={"sm"} gap={8} margin={8} bgColor={"#1F1F1F"}>
       <Box position={"relative"}>
       <AdvancedImage
       cldImg={cld.image(originalPhotoPublicId)}
