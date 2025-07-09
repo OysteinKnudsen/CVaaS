@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Cloudinary, Transformation } from "@cloudinary/url-gen";
-import { Card } from "@chakra-ui/react";
+import { Box, Card, Float } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
 import { backgroundRemoval } from "@cloudinary/url-gen/actions/effect";
 import { fit, scale } from "@cloudinary/url-gen/actions/resize";
@@ -49,18 +49,18 @@ export const ImageVariant: React.FC<Props> = (props) => {
   const downloadUrl = transformedImage.toURL();
 
   return (
-    <Card.Root>
-      <Card.Body>
-        {!isLoaded && 
-        <img src={placeholderImg} alt="Profile placeholder" />
-        }
-          <AdvancedImage
-          onLoad={() => setIsLoaded(true)}
-          cldImg={transformedImage}
-          plugins={[placeholder({ mode: "blur" })]}
-        />
-      </Card.Body>
-      <DownloadImageButton downloadUrl={downloadUrl} />
-    </Card.Root>
+    <Box position={"relative"}>
+      {!isLoaded && 
+      <img src={placeholderImg} alt="Profile placeholder" />
+      }
+        <AdvancedImage
+        onLoad={() => setIsLoaded(true)}
+        cldImg={transformedImage}
+        plugins={[placeholder({ mode: "blur" })]}
+      />
+      <Float placement="bottom-end" offset={[8]}>
+        <DownloadImageButton downloadUrl={downloadUrl} />
+      </Float>
+    </Box>
   );
 };

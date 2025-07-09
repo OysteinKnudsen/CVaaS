@@ -15,7 +15,7 @@ const handleDownload = () => {
 }
 
   return (
-    <Button variant={"ghost"} size={"md"} onClick={handleDownload}>
+    <Button variant={"ghost"} color={"white"} size={"md"} onClick={handleDownload}>
       <RiDownload2Line/>
     </Button>
   );
