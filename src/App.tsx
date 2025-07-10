@@ -2,6 +2,7 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { PhotoGrid } from "./components/PhotoGrid";
+import { VStack } from "@chakra-ui/react";
 
 function App() {
   const [originalPhotoPublicId, setOriginalPhotoPublicId] = useState<
@@ -19,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <VStack width={"100vw"}>
       <Header
         onUpload={(publicId) => {
           setOriginalPhotoPublicId(publicId);
@@ -29,7 +30,7 @@ function App() {
         originalPhotoPublicId={originalPhotoPublicId}
         backdrops={backdrops}
       />
-    </>
+    </VStack>
   );
 }
 
