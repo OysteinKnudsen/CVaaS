@@ -5,7 +5,7 @@ interface Props {
     downloadUrl: string;
 }
 
-export const DownloadImageButton: React.FC<Props> = (props) => {
+export const DownloadPhotoButton: React.FC<Props> = (props) => {
 
 const handleDownload = () => {
     const a = document.createElement("a");
