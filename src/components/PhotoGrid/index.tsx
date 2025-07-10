@@ -19,12 +19,12 @@ export const PhotoGrid: React.FC<Props> = ({ originalPhotoPublicId, backdrops })
   });
   
   return (
-    <SimpleGrid minChildWidth={"sm"} gap={8} margin={8} bgColor={"#1F1F1F"}>
+    <SimpleGrid minChildWidth={"sm"} gap={8} padding={4} bgColor={"#1F1F1F"} >
       <Box position={"relative"}>
       <AdvancedImage
       cldImg={cld.image(originalPhotoPublicId)}
       />
-      <Float placement={'top-end'} offset={1}>
+      <Float placement={'top-end'} offset={8}>
         <Badge backgroundColor={"#e6eff8"} color={"black"}>Orginal</Badge>
       </Float>
       </Box>
