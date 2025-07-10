@@ -1,4 +1,4 @@
-import { Flex, Text, Spacer, type ButtonProps, Image, Box, VStack, HStack } from "@chakra-ui/react";
+import { Flex, Text, Spacer, type ButtonProps, Image, HStack } from "@chakra-ui/react";
 import { UploadPhotoButton } from "./UploadPhotoButton/UploadPhotoButton";
 import logo from '../assets/logo.png';
 import { useState } from "react";
