@@ -3,14 +3,13 @@ import { Cloudinary, Transformation } from "@cloudinary/url-gen";
 import { Box, Float } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
 import { backgroundRemoval } from "@cloudinary/url-gen/actions/effect";
-import { fit, scale } from "@cloudinary/url-gen/actions/resize";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 import { source } from "@cloudinary/url-gen/actions/underlay";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
-import { DownloadImageButton } from "./DownloadImageButton";
+import { DownloadPhotoButton } from "./DownloadPhotoButton";
 import { quality } from "@cloudinary/url-gen/actions/delivery";
 import { autoBest } from "@cloudinary/url-gen/qualifiers/quality";
-import placeholderImg from '../../../assets/placeholder.png';
-
+import placeholderImg from "../../../assets/placeholder.png";
 
 interface Props {
   personPublicId: string;
@@ -22,25 +21,29 @@ export const ImageVariant: React.FC<Props> = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     setIsLoaded(false);
-  }, [personPublicId])
+  }, [personPublicId]);
 
   const cld = new Cloudinary({
     cloud: {
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
     },
   });
-  
+
   if (!personPublicId || !backdropImagePublicId) return null;
 
   const transformedImage = cld
     .image(personPublicId)
     .effect(backgroundRemoval().fineEdges())
-    .resize(fit().height("1.0").aspectRatio("3:4"))
-    .resize(scale().width(1463).height(2048))
     .underlay(
       source(
         image(backdropImagePublicId).transformation(
-          new Transformation().resize(scale().width(1463).height(2048))
+          new Transformation().resize(
+            fill()
+              .width("1.0")
+              .height("1.0")
+              .gravity("auto")
+              .addFlag("relative")
+          )
         )
       )
     )
@@ -50,16 +53,14 @@ export const ImageVariant: React.FC<Props> = (props) => {
 
   return (
     <Box position={"relative"}>
-      {!isLoaded && 
-      <img src={placeholderImg} alt="Profile placeholder" />
-      }
-        <AdvancedImage
+      {!isLoaded && <img src={placeholderImg} alt="Profile placeholder" />}
+      <AdvancedImage
         onLoad={() => setIsLoaded(true)}
         cldImg={transformedImage}
         plugins={[placeholder({ mode: "blur" })]}
       />
       <Float placement="bottom-end" offset={[8]}>
-        <DownloadImageButton downloadUrl={downloadUrl} />
+        <DownloadPhotoButton downloadUrl={downloadUrl} />
       </Float>
     </Box>
   );
