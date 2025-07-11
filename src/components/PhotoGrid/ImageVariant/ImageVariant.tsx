@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Cloudinary, Transformation } from "@cloudinary/url-gen";
 import { Box, Float } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
@@ -9,7 +9,6 @@ import { image } from "@cloudinary/url-gen/qualifiers/source";
 import { DownloadPhotoButton } from "./DownloadPhotoButton";
 import { quality } from "@cloudinary/url-gen/actions/delivery";
 import { autoBest } from "@cloudinary/url-gen/qualifiers/quality";
-import placeholderImg from "../../../assets/placeholder.png";
 
 interface Props {
   personPublicId: string;
@@ -18,18 +17,12 @@ interface Props {
 
 export const ImageVariant: React.FC<Props> = (props) => {
   const { personPublicId, backdropImagePublicId } = props;
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    setIsLoaded(false);
-  }, [personPublicId]);
 
   const cld = new Cloudinary({
     cloud: {
       cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
     },
   });
-
-  if (!personPublicId || !backdropImagePublicId) return null;
 
   const transformedImage = cld
     .image(personPublicId)
@@ -53,9 +46,7 @@ export const ImageVariant: React.FC<Props> = (props) => {
 
   return (
     <Box position={"relative"}>
-      {!isLoaded && <img src={placeholderImg} alt="Profile placeholder" />}
       <AdvancedImage
-        onLoad={() => setIsLoaded(true)}
         cldImg={transformedImage}
         plugins={[placeholder({ mode: "blur" })]}
       />
