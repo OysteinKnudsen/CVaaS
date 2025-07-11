@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Cloudinary, Transformation } from "@cloudinary/url-gen";
 import { Box, Float } from "@chakra-ui/react";
 import { AdvancedImage, placeholder } from "@cloudinary/react";
@@ -17,6 +17,7 @@ interface Props {
 
 export const ImageVariant: React.FC<Props> = (props) => {
   const { personPublicId, backdropImagePublicId } = props;
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const cld = new Cloudinary({
     cloud: {
@@ -47,12 +48,15 @@ export const ImageVariant: React.FC<Props> = (props) => {
   return (
     <Box position={"relative"}>
       <AdvancedImage
+        onLoad={() => setIsLoaded(true)}
         cldImg={transformedImage}
         plugins={[placeholder({ mode: "blur" })]}
       />
+      {isLoaded && 
       <Float placement="bottom-end" offset={[8]}>
         <DownloadPhotoButton downloadUrl={downloadUrl} />
       </Float>
+      }
     </Box>
   );
 };
